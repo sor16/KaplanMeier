@@ -13,8 +13,8 @@ ui <- shinyUI(fluidPage(
             fluidRow(
                 column(4,
                        wellPanel(
-                        fileInput('data',label="Choose data on csv format"),
-                        textInput('survObject',label="Survobject"),
+                        fileInput('data',label="Choose data on csv format (refer to as data)"),
+                        textInput('survObject',label="Survobject (surv_object)"),
                         textInput('survFit',label="Survfit"),
                         #radioButtons("strata", label = "Strata",
                         #                   choices=list("Sex"="SEX","Current Smoker"="CURRENT_SMOKER","Ever a smoker"="EVER_SMOKER",Statins="STATINS","Overall"=1)),
@@ -117,7 +117,7 @@ pvalPos <- reactiveValues(x="",y="")
                 grid.draw(plotkm()$plotobject)
                 dev.off()
             }else{
-                pdf(file, width =7.2+(nrTicks-1)*1  , height = 4.8)
+                pdf(file, width =7.2+(nrTicks-1)*1.5  , height = 4.8)
                 print(plotkm()$plot)
                 dev.off()
             }
