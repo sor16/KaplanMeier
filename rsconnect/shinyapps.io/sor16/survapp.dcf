@@ -1,8 +1,8 @@
 name: survapp
 account: sor16
 server: shinyapps.io
-bundleId: 340726
-url: https://sor16.shinyapps.io/survapp
-when: 1451431076.18021
+bundleId: 344984
+url: https://sor16.shinyapps.io/survapp/
+when: 1452178433.57149
 asMultiple: FALSE
 asStatic: FALSE

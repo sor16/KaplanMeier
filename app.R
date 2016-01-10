@@ -5,6 +5,7 @@ library(grid)
 library(ggplot2)
 library(shinyjs)
 library(colorspace)
+
 ui <- shinyUI(fluidPage(
 
     titlePanel("Kaplan-Meier with ggplot2"),
@@ -75,10 +76,7 @@ pvalPos <- reactiveValues(x="",y="")
             stop("Check out the data and create a surv object and a corresponding survfit")
         }
         surv_object=eval(parse(text=input$survObject))
-        #surv_object=Surv(data$DAY_START,data$DAY_END,!data$OUTCOME%in%c("TO_DEATH","FU"))
         fit=eval(parse(text=input$survFit))
-        #formula=paste("surv_object~",input$strata,sep="")
-        #fit=survfit(as.formula(formula),data=data)
         limit$xmax=max(fit$time)
         if(input$startPoint){
             limit$xmin=min(fit$time)
@@ -92,9 +90,11 @@ pvalPos <- reactiveValues(x="",y="")
         }else{
             colorInfo$colors=sapply(1:colorInfo$strata,function(i) input[[paste("col",i,sep="")]])
         }
-        
         pvals=data.frame(text=input$pvalue,x=pvalPos$x,y=pvalPos$y,stringsAsFactors=FALSE)
         namesOfStrata=unlist(strsplit(input$legendText,split=","))
+        if(length(namesOfStrata)!=0 && length(namesOfStrata) != length(fit$strata)){
+            stop("names of strata do not match the number of strata in the survfit object")
+        }
         base=gg_KM(fit,title=input$title,legend=input$legend,
                    confinterval=input$confinterval,startPoint=input$startPoint,
                    background=input$background,ticks=input$axisTicks,xlabel = input$xlab,ylabel = input$ylab,colors=colorInfo$colors,pval = pvals,timeInYears=input$timeInYears,namesOfStrata = namesOfStrata)
