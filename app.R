@@ -5,7 +5,6 @@ library(grid)
 library(ggplot2)
 library(shinyjs)
 library(colorspace)
-
 ui <- shinyUI(fluidPage(
 
     titlePanel("Kaplan-Meier with ggplot2"),
